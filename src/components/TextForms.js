@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 
 export default function TextForms(props) {
 
+  const [text,setText] = useState("");
+
   const handleUpClick= () => {
   //  console.log("Uppercase was Clicked");
    let newText = text.toUpperCase();
@@ -10,8 +12,7 @@ export default function TextForms(props) {
  
  const handleResetClick= () => {
   //  console.log("Uppercase was Clicked");
-   let newText = "";
-   setText(newText);
+   setText("");
  }
  
 
@@ -20,8 +21,19 @@ export default function TextForms(props) {
   setText(event.target.value);
 }
 
+const handleRemoveSpacesClick = () => {
+  setText(prevState => {
+    let modify = '';
+    for(let i = 0; i < prevState.length; i++){
+      if( prevState[i] !== ' '){
+        modify = modify + prevState[i];
+      }
+    }
+    return modify;
+  });
+}
+
  
-  const [text,setText] = useState("");
 
 
   return (
@@ -32,6 +44,7 @@ export default function TextForms(props) {
   <textarea className="form-control" value = {text} onChange={handleOnChange} placeholder="Enter your text" id="floatingTextarea" rows= "12"></textarea>
 <button className="btn btn-primary my-3"onClick={handleUpClick}>Convert to Uppercase</button>
 <button className="btn btn-primary mx-2"onClick={handleResetClick}> Reset </button>
+<button className="btn btn-primary mx-2"onClick={handleRemoveSpacesClick}> Remove extra spaces </button>
 </div>
 
 </div>
